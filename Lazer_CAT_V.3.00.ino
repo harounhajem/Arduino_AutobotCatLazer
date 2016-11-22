@@ -288,6 +288,7 @@ void AutoBotMode() {
 			}
 		}
 	} while (!ReadJoystick());
+
 	//Serial.print("   Top_Y: ");
 	//Serial.print(posServoTop);
 	//Serial.print("   newpos Y: ");
