@@ -10,9 +10,9 @@ Servo ServX;
 #define joyInputY		A7  // Y-Axis vit
 
 #define	servoTop		5	// Servo top blå
+#define	servoBottom		6	// Servo bottom lila 
 #define	lazer			4	// Lazer button  gul
 #define speaker			7	// Piezo speaker green
-#define	servoBottom		6	// Servo bottom lila 
 #define	musicButton		3	// Button musics
 #define joyButton		2  // Button on joystick green/ orange
 
@@ -24,6 +24,7 @@ const int numReadings = 10;
 int bufferX[] = { 15338, 15538 },
 bufferY[] = { 16427, 16627 };
 int
+songTrack = 0,
 timerMovementDelay,
 buttonState = 1,
 lastButtonState = 0,
@@ -38,15 +39,6 @@ buttonMusicVal,
 counterPause,
 second_time = 3,
 pauseExecCounter = 2,
-// Smoothing values
-readingsy[numReadings],      // the readings from the analog input
-indexy = 0,                  // the index of the current reading
-totaly = 0,                  // the running total
-averagey = 0,                // the average
-readingsx[numReadings],      // the readings from the analog input
-indexx = 0,                  // the index of the current reading
-totalx = 0,                  // the running total
-averagex = 0,                // the average
 randomPauseTime = 1200;
 
 long interval;
@@ -68,20 +60,45 @@ timerSmoothY;
 
 
 
-int melody[] = {
+int melody[][100] = {
 
-  NOTE_E4,NOTE_F4,NOTE_F4,NOTE_F4,NOTE_F4,NOTE_E4,NOTE_E4,NOTE_E4,
+  {NOTE_E4,NOTE_F4,NOTE_F4,NOTE_F4,NOTE_F4,NOTE_E4,NOTE_E4,NOTE_E4,
   NOTE_E4,NOTE_G4,NOTE_G4,NOTE_G4,NOTE_G4,NOTE_E4,NOTE_E4,NOTE_E4,
   NOTE_E4,NOTE_F4,NOTE_F4,NOTE_F4,NOTE_F4,NOTE_E4,NOTE_E4,NOTE_E4,
   NOTE_E4,NOTE_G4,NOTE_G4,NOTE_G4,NOTE_G4,NOTE_E4,NOTE_E4,NOTE_E4,
   NOTE_DS5,NOTE_D5,NOTE_B4,NOTE_A4,NOTE_B4,
   NOTE_E4,NOTE_G4,NOTE_DS5,NOTE_D5,NOTE_G4,NOTE_B4,
   NOTE_B4,NOTE_FS5,NOTE_F5,NOTE_B4,NOTE_D5,NOTE_AS5,
-  NOTE_A5,NOTE_F5,NOTE_A5,NOTE_DS6,NOTE_D6,NO_SOUND
+  NOTE_A5,NOTE_F5,NOTE_A5,NOTE_DS6,NOTE_D6,NO_SOUND},
+
+  { NOTE_E7, NOTE_E7, 0, NOTE_E7,
+  0, NOTE_C7, NOTE_E7, 0,
+  NOTE_G7, 0, 0,  0,
+  NOTE_G6, 0, 0, 0,
+
+  NOTE_C7, 0, 0, NOTE_G6,
+  0, 0, NOTE_E6, 0,
+  0, NOTE_A6, 0, NOTE_B6,
+  0, NOTE_AS6, NOTE_A6, 0,
+
+  NOTE_G6, NOTE_E7, NOTE_G7,
+  NOTE_A7, 0, NOTE_F7, NOTE_G7,
+  0, NOTE_E7, 0, NOTE_C7,
+  NOTE_D7, NOTE_B6, 0, 0,
+
+  NOTE_C7, 0, 0, NOTE_G6,
+  0, 0, NOTE_E6, 0,
+  0, NOTE_A6, 0, NOTE_B6,
+  0, NOTE_AS6, NOTE_A6, 0,
+
+  NOTE_G6, NOTE_E7, NOTE_G7,
+  NOTE_A7, 0, NOTE_F7, NOTE_G7,
+  0, NOTE_E7, 0, NOTE_C7,
+  NOTE_D7, NOTE_B6, 0, 0 }
 };
 
 
-int noteDurations[] = {
+int noteDurations[][100] = { {
 
   8,16,16,8,4,8,8,8,
   8,16,16,8,4,8,8,8,
@@ -90,7 +107,31 @@ int noteDurations[] = {
   8,2,8,8,1,
   8,4,8,4,8,8,
   8,8,4,8,4,8,
-  4,8,4,8,3
+  4,8,4,8,3},
+  { 12, 12, 12, 12,
+  12, 12, 12, 12,
+  12, 12, 12, 12,
+  12, 12, 12, 12,
+
+  12, 12, 12, 12,
+  12, 12, 12, 12,
+  12, 12, 12, 12,
+  12, 12, 12, 12,
+
+  9, 9, 9,
+  12, 12, 12, 12,
+  12, 12, 12, 12,
+  12, 12, 12, 12,
+
+  12, 12, 12, 12,
+  12, 12, 12, 12,
+  12, 12, 12, 12,
+  12, 12, 12, 12,
+
+  9, 9, 9,
+  12, 12, 12, 12,
+  12, 12, 12, 12,
+  12, 12, 12, 12 }
 };
 
 int pace = 1100; // change pace of music("speedy")
@@ -100,7 +141,7 @@ int Note = 54;
 
 void setup()
 {
-	ServX.attach(servoBottom);  // attaches the servo on pin 9 to the servo object
+	ServX.attach(servoBottom);  
 	ServY.attach(servoTop);
 	Serial.begin(115200);
 	pinMode(lazer, OUTPUT);
@@ -110,13 +151,7 @@ void setup()
 
 	pinMode(joyButton, INPUT_PULLUP);
 	pinMode(musicButton, INPUT_PULLUP);
-	digitalWrite(joyButton, HIGH); // turn on pull-up resistors
-
-
-	for (int thisReading = 0; thisReading < numReadings; thisReading++)
-		readingsy[thisReading] = 0;
-	for (int thisReading = 0; thisReading < numReadings; thisReading++)
-		readingsx[thisReading] = 0;
+	digitalWrite(joyButton, HIGH); 
 
 
 }
@@ -282,8 +317,8 @@ void PlayMusic() {
 		interval = (duration * 1.2);
 		if (currentMillis - previousMillis >= interval) {
 			previousMillis = currentMillis;
-			duration = pace / noteDurations[Note];//Adjust duration with the pace of music
-			tone(speaker, melody[Note], duration); //Play note
+			duration = pace / noteDurations[songTrack][Note];//Adjust duration with the pace of music
+			tone(speaker, melody[songTrack][Note], duration); //Play note
 			Note++;
 		}
 	}
@@ -309,8 +344,10 @@ void ReadingButtons() {
 
 	// Music
 	buttonMusicVal = digitalRead(musicButton);
-	if ((buttonMusicVal == LOW) && (millis() - musicTimer > 12000UL)) {
+	if ((buttonMusicVal == LOW) && (millis() - musicTimer > 5000UL)) {
 		Note = 0;
+		songTrack++;
+		songTrack = songTrack > 1 ? 0 : songTrack;
 		musicTimer = millis();
 		timerAutoBot = millis();
 	}

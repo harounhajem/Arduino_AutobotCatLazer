@@ -53,4 +53,5 @@ extern "C" void __cxa_pure_virtual() {;}
 #define PSTR(string_literal) ((const PROGMEM char *)(string_literal))")
 #include "Lazer_CAT_V.3.00.ino"
 #include "Old Save.ino"
+#include "fluxaxiomAutoLaserCat.ino"
 #endif

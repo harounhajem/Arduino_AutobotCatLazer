@@ -17,6 +17,7 @@
   <ItemGroup>
     <None Include="Lazer_CAT_V.3.00.ino" />
     <None Include="Old Save.ino" />
+    <None Include="fluxaxiomAutoLaserCat.ino" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="__vm\.Lazer_CAT_V.3.00.vsarduino.h">

@@ -78,6 +78,7 @@
     <ProjectCapability Include="VisualMicro" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="fluxaxiomAutoLaserCat.ino" />
     <None Include="Lazer_CAT_V.3.00.ino">
       <FileType>CppCode</FileType>
     </None>
