@@ -21,6 +21,8 @@ Servo ServX;
 #pragma region Variables
 
 const int numReadings = 10;
+int bufferX[] = { 15338, 15538 },
+bufferY[] = { 16427, 16627 };
 int
 timerMovementDelay,
 buttonState = 1,
@@ -120,117 +122,45 @@ void setup()
 }
 
 void loop() {
-	//SmoothingJoyValue();
-	ResetDefectValues();
+
 	AutoBotMode();
 	ManualMode();
 
 }
 
-void ReadingButtons() {
 
-	// Lazer
-	buttonState = digitalRead(joyButton);
-
-	if (buttonState != lastButtonState) {
-		if (buttonState == HIGH) {
-			buttonPushCounter++;
-		}
-		lastButtonState = buttonState;
-	}
-
-	if (buttonPushCounter % 2 == 0) {
-		digitalWrite(lazer, HIGH);
-	}
-	else {
-		digitalWrite(lazer, LOW);
-	}
-
-	// Music
-	buttonMusicVal = digitalRead(musicButton);
-	if ((buttonMusicVal == LOW) && (millis() - musicTimer > 12000UL)) {
-		Note = 0;
-		musicTimer = millis();
-		timerAutoBot = millis();
-	}
-}
-
-void MoveServo(unsigned long& timer, const int timeoutRead, int& joyPos, int upperBuffer, int lowerBuffer, int& posServo, int& newPosServo, Servo& servo)
-{
-	if (millis() - timer > timeoutRead) {
-		if (joyPos > upperBuffer || joyPos < lowerBuffer) {
-			if (joyPos > upperBuffer) {
-				posServo--;
-			}
-			else
-				if (joyPos < lowerBuffer) {
-					posServo++;
-				}
-			servo.write(posServo);
-
-			// reset
-			newPosServo = posServo;
-			counterPause = 0;
-			timerAutoBot = millis();
-			timer = millis();
-		}
-	}
-}
-bool ReadJoystick() {
-	joyX = map(joyX = analogRead(joyInputX), 0, 1023, 0, 32766);
-	joyY = map(joyY = analogRead(joyInputY), 0, 1023, 0, 32766);
-	// TODO: Move this?!
-	int bufferX[] = { 15538, 15338 },
-		bufferY[] = { 16427, 16627 };
-	if (joyX == 0 ||
-		joyY == 0 ||
-		joyX == 32766 ||
-		joyY == 32766)
-	{
-		timerMovementDelay = 40;
-	}
-	else
-	{
-		timerMovementDelay = 125;
-	}
-
-	if (joyX < bufferX[0] ||
-		joyY < bufferY[0] ||
-		joyX > bufferX[1] ||
-		joyY > bufferY[1]
-		)
-	{
-		return true;
-	}
-	else
-		return false;
-}
 void ManualMode() {
-	ReadJoystick();
 
-	// Top Servo - Joy X
-	MoveServo(
-		timerJoyReadX,
-		timerMovementDelay,
-		joyX,
-		15540, // TODO: Update this
-		15330,
-		posServoTop,
-		newPosServoTop,
-		ServY);
-	// Bottom Servo - Joy Y
-	MoveServo(
-		timerJoyReadY,
-		timerMovementDelay,
-		joyY,
-		16630,
-		16420,
-		posServoBottom,
-		newPosServoBottom,
-		ServX);
+	do
+	{
+		if (ReadJoystick())
+		{
+			// Top Servo - Joy X
+			MoveServo(
+				timerJoyReadX,
+				timerMovementDelay,
+				joyX,
+				bufferX[1],
+				bufferX[0],
+				posServoTop,
+				newPosServoTop,
+				ServY);
+			// Bottom Servo - Joy Y
+			MoveServo(
+				timerJoyReadY,
+				timerMovementDelay,
+				joyY,
+				bufferY[1],
+				bufferY[0],
+				posServoBottom,
+				newPosServoBottom,
+				ServX);
+		};
+		ReadingButtons();
+		PlayMusic();
 
-	ReadingButtons();
-	PlayMusic();
+	} while ((millis() - timerAutoBot < 5000UL));
+
 }
 void AutoBotMode() {
 
@@ -241,8 +171,7 @@ void AutoBotMode() {
 	do
 	{
 		// bot Function 
-		if ((millis() - wait > randomPauseTime) &&
-			(millis() - timerAutoBot > 5000UL)) {
+		if (millis() - wait > randomPauseTime) {
 			// Servo Bottom X
 			if (posServoBottom == newPosServoBottom) {
 				newPosServoBottom = random(10, 160);
@@ -299,29 +228,53 @@ void AutoBotMode() {
 	//Serial.print("   newpos X: ");
 	//Serial.println(newPosServoBottom);
 }
-//void Smoothing(int& total, int readings[10], int& index, int joyInput, int& joyPos) {
-//	total = total - readings[index];
-//	readings[index] = analogRead(joyInput);
-//	total = total + readings[index];
-//	index = index + 1;
-//	if (index >= numReadings)
-//	{
-//		index = 0;
-//	}
-//	joyPos = total / numReadings;
-//}
-//void SmoothingJoyValue() {
-//	//// Top Joy Y
-//	//Smoothing(totaly, readingsy, indexy, joyInputY, joyY);
-//	//// Bottom Joy X
-//	//Smoothing(totalx, readingsx, indexx, joyInputX, joyX);
-//}
-void ResetDefectValues() {
-	//Saftey measure
-	posServoBottom = constrain(posServoBottom, -6, 186);
-	posServoTop = constrain(posServoTop, -6, 186);
-	newPosServoBottom = constrain(newPosServoBottom, -6, 186);
-	newPosServoTop = constrain(newPosServoTop, -6, 186);
+bool ReadJoystick() {
+	joyX = map(joyX = analogRead(joyInputX), 0, 1023, 0, 32766);
+	joyY = map(joyY = analogRead(joyInputY), 0, 1023, 0, 32766);
+	if (joyX == 0 ||
+		joyY == 0 ||
+		joyX == 32766 ||
+		joyY == 32766)
+	{
+		timerMovementDelay = 25;
+	}
+	else
+	{
+		timerMovementDelay = 200;
+	}
+
+	if (joyX < bufferX[0] ||
+		joyY < bufferY[0] ||
+		joyX > bufferX[1] ||
+		joyY > bufferY[1]
+		)
+	{
+		return true;
+	}
+	else
+		return false;
+}
+void MoveServo(unsigned long& timer, const int timeoutRead, int& joyPos, int upperBuffer, int lowerBuffer, int& posServo, int& newPosServo, Servo& servo)
+{
+	if (millis() - timer > timeoutRead) {
+		if (joyPos > upperBuffer || joyPos < lowerBuffer) {
+			if (joyPos > upperBuffer) {
+				posServo--;
+			}
+			else
+			if (joyPos < lowerBuffer) {
+				posServo++;
+			}
+			posServo = constrain(posServo, -6, 186);
+			servo.write(posServo);
+
+			// reset
+			newPosServo = posServo;
+			counterPause = 0;
+			timerAutoBot = millis();
+			timer = millis();
+		}
+	}
 }
 void PlayMusic() {
 	if (Note < 54) {
@@ -333,5 +286,32 @@ void PlayMusic() {
 			tone(speaker, melody[Note], duration); //Play note
 			Note++;
 		}
+	}
+}
+void ReadingButtons() {
+
+	// Lazer
+	buttonState = digitalRead(joyButton);
+
+	if (buttonState != lastButtonState) {
+		if (buttonState == HIGH) {
+			buttonPushCounter++;
+		}
+		lastButtonState = buttonState;
+	}
+
+	if (buttonPushCounter % 2 == 0) {
+		digitalWrite(lazer, HIGH);
+	}
+	else {
+		digitalWrite(lazer, LOW);
+	}
+
+	// Music
+	buttonMusicVal = digitalRead(musicButton);
+	if ((buttonMusicVal == LOW) && (millis() - musicTimer > 12000UL)) {
+		Note = 0;
+		musicTimer = millis();
+		timerAutoBot = millis();
 	}
 }

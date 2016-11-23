@@ -9,118 +9,70 @@
       <VCCodeMacros />
     </VCCodeModel>
     <BreakPoints>
-      <BreakPoint Index="1" Name="Lazer_CAT_V.3.00.ino, line 122" Id="472e9996-812e-45ca-b618-a196af3b2225" Enabled="0" Message="  Millis is currently {millis()}.&#xD;&#xA;Press F5 to continue.&#xD;&#xA;    Press Ctrl+F5 to stop debugging or close/stop the Serial Monitor&#xD;&#xA;  &#xD;&#xA;    The code is stopped at the start of the loop() function, where you see a red dot.&#xD;&#xA;    The red dot is a ‘breakpoint’.&#xD;&#xA;    This breakpoint is automatically set by Visual Micro to demonstrate the Arduino debugger.&#xD;&#xA;    Add your own breakpoints by placing the cursor on any code line and pressing F9. Press F9 again to delete the breakpoint.&#xD;&#xA;    Read more about the Visual Micro debugger at http://www.visualmicro.com/page/Debugging-for-Arduino.aspx&#xD;&#xA;    Take some time to learn about debugging, it’s worth it!&#xD;&#xA;    To switch the demo breakpoint and other tips off, deselect Visual Micro&gt;Tutorial Mode.&#xD;&#xA;" MessageTextType="0" PreProcessedMessage="  Millis is currently {0}.&#xD;&#xA;Press F5 to continue.&#xD;&#xA;    Press Ctrl+F5 to stop debugging or close/stop the Serial Monitor&#xD;&#xA;  &#xD;&#xA;    The code is stopped at the start of the loop() function, where you see a red dot.&#xD;&#xA;    The red dot is a ‘breakpoint’.&#xD;&#xA;    This breakpoint is automatically set by Visual Micro to demonstrate the Arduino debugger.&#xD;&#xA;    Add your own breakpoints by placing the cursor on any code line and pressing F9. Press F9 again to delete the breakpoint.&#xD;&#xA;    Read more about the Visual Micro debugger at http://www.visualmicro.com/page/Debugging-for-Arduino.aspx&#xD;&#xA;    Take some time to learn about debugging, it’s worth it!&#xD;&#xA;    To switch the demo breakpoint and other tips off, deselect Visual Micro&gt;Tutorial Mode.&#xD;&#xA;" Condition="millis()&gt;0 || millis()&gt;1" ConditionType="1" CurrentHits="0" File="f:\work 5\arduino\lazer_cat_v.3.00\lazer_cat_v.3.00.ino" FileLine="122" FileColumn="1" FunctionName="" FunctionLineOffset="1" FunctionColumnOffset="1" HitCountTarget="250" HitCountType="4" Language="C++" LocationType="3" Tag="&lt;vmbp Id='472e9996-812e-45ca-b618-a196af3b2225'/&gt;" Type="1" ToString="System.__ComObject" BreakWhenHit="0">
-        <Source>115			readingsy[thisReading] = 0;
-116		for (int thisReading = 0; thisReading &lt; numReadings; thisReading++)
-117			readingsx[thisReading] = 0;
-118	
-119	
-120	}
+      <BreakPoint Index="1" Name="Lazer_CAT_V.3.00.ino, line 124" Id="472e9996-812e-45ca-b618-a196af3b2225" Enabled="0" Message="  Millis is currently {millis()}.&#xD;&#xA;Press F5 to continue.&#xD;&#xA;    Press Ctrl+F5 to stop debugging or close/stop the Serial Monitor&#xD;&#xA;  &#xD;&#xA;    The code is stopped at the start of the loop() function, where you see a red dot.&#xD;&#xA;    The red dot is a ‘breakpoint’.&#xD;&#xA;    This breakpoint is automatically set by Visual Micro to demonstrate the Arduino debugger.&#xD;&#xA;    Add your own breakpoints by placing the cursor on any code line and pressing F9. Press F9 again to delete the breakpoint.&#xD;&#xA;    Read more about the Visual Micro debugger at http://www.visualmicro.com/page/Debugging-for-Arduino.aspx&#xD;&#xA;    Take some time to learn about debugging, it’s worth it!&#xD;&#xA;    To switch the demo breakpoint and other tips off, deselect Visual Micro&gt;Tutorial Mode.&#xD;&#xA;" MessageTextType="0" PreProcessedMessage="  Millis is currently {0}.&#xD;&#xA;Press F5 to continue.&#xD;&#xA;    Press Ctrl+F5 to stop debugging or close/stop the Serial Monitor&#xD;&#xA;  &#xD;&#xA;    The code is stopped at the start of the loop() function, where you see a red dot.&#xD;&#xA;    The red dot is a ‘breakpoint’.&#xD;&#xA;    This breakpoint is automatically set by Visual Micro to demonstrate the Arduino debugger.&#xD;&#xA;    Add your own breakpoints by placing the cursor on any code line and pressing F9. Press F9 again to delete the breakpoint.&#xD;&#xA;    Read more about the Visual Micro debugger at http://www.visualmicro.com/page/Debugging-for-Arduino.aspx&#xD;&#xA;    Take some time to learn about debugging, it’s worth it!&#xD;&#xA;    To switch the demo breakpoint and other tips off, deselect Visual Micro&gt;Tutorial Mode.&#xD;&#xA;" Condition="millis()&gt;0 || millis()&gt;1" ConditionType="1" CurrentHits="0" File="f:\work 5\arduino\lazer_cat_v.3.00\lazer_cat_v.3.00.ino" FileLine="124" FileColumn="1" FunctionName="" FunctionLineOffset="1" FunctionColumnOffset="1" HitCountTarget="250" HitCountType="4" Language="C++" LocationType="3" Tag="&lt;vmbp Id='472e9996-812e-45ca-b618-a196af3b2225'/&gt;" Type="1" ToString="System.__ComObject" BreakWhenHit="0">
+        <Source>117			readingsy[thisReading] = 0;
+118		for (int thisReading = 0; thisReading &lt; numReadings; thisReading++)
+119			readingsx[thisReading] = 0;
+120	
 121	
---&gt;122	void loop() {
-123		//SmoothingJoyValue();
-124		ResetDefectValues();
-125		AutoBotMode();
-126		ManualMode();
-127	
-128	}
-129	
-130	void ReadingButtons() {
+122	}
+123	
+--&gt;124	void loop() {
+125	
+126		AutoBotMode();
+127		ManualMode();
+128	
+129	}
+130	
 131	
+132	void ManualMode() {
+133	
 </Source>
         <MessageVariables>
           <MessageVariable Name="millis()" Index="1" />
         </MessageVariables>
       </BreakPoint>
-      <BreakPoint Index="2" Name="Lazer_CAT_V.3.00.ino, line 124" Id="214494f8-f4b4-463f-a1e1-5d55da075006" Enabled="0" Message="{@Plot.Analog.X.Red analogRead(joyInputX)}" MessageTextType="2" PreProcessedMessage="{0}" Condition="" ConditionType="1" CurrentHits="0" File="f:\work 5\arduino\lazer_cat_v.3.00\lazer_cat_v.3.00.ino" FileLine="124" FileColumn="1" FunctionName="loop()" FunctionLineOffset="3" FunctionColumnOffset="1" HitCountTarget="1" HitCountType="1" Language="C++" LocationType="3" Tag="&lt;vmbp Id='214494f8-f4b4-463f-a1e1-5d55da075006'/&gt;" Type="1" ToString="System.__ComObject" BreakWhenHit="0">
-        <Source>117			readingsx[thisReading] = 0;
-118	
-119	
-120	}
+      <BreakPoint Index="2" Name="Lazer_CAT_V.3.00.ino, line 126" Id="569f4f00-9c59-4fd7-b612-0c6562bec63f" Enabled="0" Message="{@Plot.Analog.Y.Blue analogRead(joyInputY)}" MessageTextType="2" PreProcessedMessage="{0}" Condition="" ConditionType="1" CurrentHits="0" File="f:\work 5\arduino\lazer_cat_v.3.00\lazer_cat_v.3.00.ino" FileLine="126" FileColumn="1" FunctionName="loop()" FunctionLineOffset="4" FunctionColumnOffset="1" HitCountTarget="1" HitCountType="1" Language="C++" LocationType="3" Tag="&lt;vmbp Id='569f4f00-9c59-4fd7-b612-0c6562bec63f'/&gt;" Type="1" ToString="System.__ComObject" BreakWhenHit="0">
+        <Source>119			readingsx[thisReading] = 0;
+120	
 121	
-122	void loop() {
-123		//SmoothingJoyValue();
---&gt;124		ResetDefectValues();
-125		AutoBotMode();
-126		ManualMode();
-127	
-128	}
-129	
-130	void ReadingButtons() {
+122	}
+123	
+124	void loop() {
+125	
+--&gt;126		AutoBotMode();
+127		ManualMode();
+128	
+129	}
+130	
 131	
-132		// Lazer
-133		buttonState = digitalRead(joyButton);
-</Source>
-        <MessageVariables>
-          <MessageVariable Name="@Plot.Analog.X.Red analogRead(joyInputX)" Index="1" />
-        </MessageVariables>
-      </BreakPoint>
-      <BreakPoint Index="3" Name="Lazer_CAT_V.3.00.ino, line 125" Id="569f4f00-9c59-4fd7-b612-0c6562bec63f" Enabled="0" Message="{@Plot.Analog.Y.Blue analogRead(joyInputY)}" MessageTextType="2" PreProcessedMessage="{0}" Condition="" ConditionType="1" CurrentHits="0" File="f:\work 5\arduino\lazer_cat_v.3.00\lazer_cat_v.3.00.ino" FileLine="125" FileColumn="1" FunctionName="loop()" FunctionLineOffset="4" FunctionColumnOffset="1" HitCountTarget="1" HitCountType="1" Language="C++" LocationType="3" Tag="&lt;vmbp Id='569f4f00-9c59-4fd7-b612-0c6562bec63f'/&gt;" Type="1" ToString="System.__ComObject" BreakWhenHit="0">
-        <Source>118	
-119	
-120	}
-121	
-122	void loop() {
-123		//SmoothingJoyValue();
-124		ResetDefectValues();
---&gt;125		AutoBotMode();
-126		ManualMode();
-127	
-128	}
-129	
-130	void ReadingButtons() {
-131	
-132		// Lazer
-133		buttonState = digitalRead(joyButton);
-134	
+132	void ManualMode() {
+133	
+134		do
+135		{
 </Source>
         <MessageVariables>
           <MessageVariable Name="@Plot.Analog.Y.Blue analogRead(joyInputY)" Index="1" />
         </MessageVariables>
       </BreakPoint>
-      <BreakPoint Index="4" Name="Lazer_CAT_V.3.00.ino, line 175" Id="f862feff-eb3a-44a8-afb6-0295fc5bdef7" Enabled="0" Message="{newPosServo}{posServo}{timeoutRead}" MessageTextType="2" PreProcessedMessage="{0}{1}{2}" Condition="" ConditionType="1" CurrentHits="0" File="f:\work 5\arduino\lazer_cat_v.3.00\lazer_cat_v.3.00.ino" FileLine="175" FileColumn="1" FunctionName="ReadMove(unsigned long&amp; timer, const int timeoutRead, int&amp; joyPos, int upperBuffer, int lowerBuffer, int&amp; posServo, int&amp; newPosServo, Servo&amp; servo)" FunctionLineOffset="17" FunctionColumnOffset="1" HitCountTarget="1" HitCountType="1" Language="C++" LocationType="3" Tag="&lt;vmbp Id='f862feff-eb3a-44a8-afb6-0295fc5bdef7'/&gt;" Type="1" ToString="System.__ComObject" BreakWhenHit="0">
-        <Source>168					}
-169				servo.write(posServo);
-170	
-171				// reset
-172				newPosServo = posServo;
-173				counterPause = 0;
-174				timerAutoBot = millis();
---&gt;175				timer = millis();
-176			}
-177		}
-178	}
-179	bool ReadJoystick() {
-180		joyX = map(joyX = analogRead(joyInputX), 0, 1023, 0, 32766);
-181		joyY = map(joyY = analogRead(joyInputY), 0, 1023, 0, 32766);
-182		// TODO: Move this?!
-183		int bufferX[] = { 15538, 15338 },
-184			bufferY[] = { 16427, 16627 };
-</Source>
-        <MessageVariables>
-          <MessageVariable Name="newPosServo" Index="1" />
-          <MessageVariable Name="posServo" Index="2" />
-          <MessageVariable Name="timeoutRead" Index="3" />
-        </MessageVariables>
-      </BreakPoint>
-      <BreakPoint Index="5" Name="Lazer_CAT_V.3.00.ino, line 126" Id="bf838a5f-298a-43a7-8718-678c7d6db8ac" Enabled="1" Message="{joyY}{joyX}{posServoBottom}{posServoTop}{counterPause}{pauseExecCounter}{randomPauseTime}" MessageTextType="2" PreProcessedMessage="{0}{1}{2}{3}{4}{5}{6}" Condition="" ConditionType="1" CurrentHits="0" File="f:\work 5\arduino\lazer_cat_v.3.00\lazer_cat_v.3.00.ino" FileLine="126" FileColumn="1" FunctionName="loop()" FunctionLineOffset="5" FunctionColumnOffset="1" HitCountTarget="1" HitCountType="1" Language="C++" LocationType="3" Tag="&lt;vmbp Id='bf838a5f-298a-43a7-8718-678c7d6db8ac'/&gt;" Type="1" ToString="System.__ComObject" BreakWhenHit="0">
-        <Source>119	
-120	}
+      <BreakPoint Index="3" Name="Lazer_CAT_V.3.00.ino, line 127" Id="bf838a5f-298a-43a7-8718-678c7d6db8ac" Enabled="1" Message="{joyY}{joyX}{posServoBottom}{posServoTop}{counterPause}{pauseExecCounter}{randomPauseTime}" MessageTextType="2" PreProcessedMessage="{0}{1}{2}{3}{4}{5}{6}" Condition="" ConditionType="1" CurrentHits="0" File="f:\work 5\arduino\lazer_cat_v.3.00\lazer_cat_v.3.00.ino" FileLine="127" FileColumn="1" FunctionName="loop()" FunctionLineOffset="5" FunctionColumnOffset="1" HitCountTarget="1" HitCountType="1" Language="C++" LocationType="3" Tag="&lt;vmbp Id='bf838a5f-298a-43a7-8718-678c7d6db8ac'/&gt;" Type="1" ToString="System.__ComObject" BreakWhenHit="0">
+        <Source>120	
 121	
-122	void loop() {
-123		//SmoothingJoyValue();
-124		ResetDefectValues();
-125		AutoBotMode();
---&gt;126		ManualMode();
-127	
-128	}
-129	
-130	void ReadingButtons() {
+122	}
+123	
+124	void loop() {
+125	
+126		AutoBotMode();
+--&gt;127		ManualMode();
+128	
+129	}
+130	
 131	
-132		// Lazer
-133		buttonState = digitalRead(joyButton);
-134	
-135		if (buttonState != lastButtonState) {
+132	void ManualMode() {
+133	
+134		do
+135		{
+136			if (ReadJoystick())
 </Source>
         <MessageVariables>
           <MessageVariable Name="joyY" Index="1" />
@@ -130,6 +82,33 @@
           <MessageVariable Name="counterPause" Index="5" />
           <MessageVariable Name="pauseExecCounter" Index="6" />
           <MessageVariable Name="randomPauseTime" Index="7" />
+        </MessageVariables>
+      </BreakPoint>
+      <BreakPoint Index="4" Name="Lazer_CAT_V.3.00.ino, line 218" Id="941583b3-85dd-45ad-a212-905fce332592" Enabled="1" Message="{posServoBottom}{posServoTop}{counterPause}{pauseExecCounter}{randomPauseTime}" MessageTextType="2" PreProcessedMessage="{0}{1}{2}{3}{4}" Condition="" ConditionType="1" CurrentHits="0" File="f:\work 5\arduino\lazer_cat_v.3.00\lazer_cat_v.3.00.ino" FileLine="218" FileColumn="1" FunctionName="AutoBotMode()" FunctionLineOffset="54" FunctionColumnOffset="1" HitCountTarget="1" HitCountType="1" Language="C++" LocationType="3" Tag="&lt;vmbp Id='941583b3-85dd-45ad-a212-905fce332592'/&gt;" Type="1" ToString="System.__ComObject" BreakWhenHit="0">
+        <Source>211					}
+212					else if (newPosServoTop &lt; posServoTop) {
+213						posServoTop--;
+214					}
+215					ServY.write(posServoTop);
+216					timerSmoothX = millis();
+217				}
+--&gt;218			}
+219		} while (!ReadJoystick());
+220	
+221		//Serial.print("   Top_Y: ");
+222		//Serial.print(posServoTop);
+223		//Serial.print("   newpos Y: ");
+224		//Serial.print(newPosServoTop);
+225		//Serial.print("        ");
+226		//Serial.print("   Bottom X: ");
+227		//Serial.print(posServoBottom);
+</Source>
+        <MessageVariables>
+          <MessageVariable Name="posServoBottom" Index="1" />
+          <MessageVariable Name="posServoTop" Index="2" />
+          <MessageVariable Name="counterPause" Index="3" />
+          <MessageVariable Name="pauseExecCounter" Index="4" />
+          <MessageVariable Name="randomPauseTime" Index="5" />
         </MessageVariables>
       </BreakPoint>
     </BreakPoints>
